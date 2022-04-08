@@ -5,14 +5,26 @@ app = FastAPI()
 
 
 freezer_data = {
-    "JH95Q": {
-        "AEDC": True,
-        "XYZD": False
-    },
-    "AW749H": {
-        "XYWQ": True,
-        "YWQU": True
-    }
+    "JH95Q": [
+        {
+            "freezer_id": "AEDC",
+            "status": True
+        },
+        {
+            "freezer_id": "XYDZ",
+            "status": False
+        },
+    ],
+    "AW749H": [
+        {
+            "freezer_id": "XYWQ",
+            "status": True
+        },
+        {
+            "freezer_id": "YWQU",
+            "status": True
+        }
+    ]
 }
 
 @app.get("/")
@@ -37,7 +49,7 @@ def _get_system_status(system_id: str) -> dict:
     return freezer_data[system_id]
 
 
-@app.get("/systems/{system_id}")
+@app.get("/systems/")
 async def read_system(system_id: str):
     """API call to return a freezer system status
 
