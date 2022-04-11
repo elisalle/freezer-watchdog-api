@@ -1,5 +1,5 @@
 """This API serves information about freezer systems to an Android app."""
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
@@ -12,7 +12,7 @@ freezer_data = {
         },
         {
             "freezer_id": "XYDZ",
-            "status": False
+            "status": True
         },
     ],
     "AW749H": [
@@ -59,4 +59,7 @@ async def read_system(system_id: str):
     Returns:
         dict: current status of the system
     """
-    return _get_system_status(system_id=system_id)
+    try:
+        return _get_system_status(system_id=system_id)
+    except KeyError as system_id_not_found:
+        raise HTTPException(status_code=422, detail="Freezer system id does not exist") from system_id_not_found
