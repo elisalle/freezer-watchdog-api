@@ -27,6 +27,7 @@ freezer_data = {
     ]
 }
 
+
 @app.get("/")
 async def read_root() -> dict:
     """Top-level API call
@@ -35,6 +36,7 @@ async def read_root() -> dict:
         dict: a placeholder dictionary
     """
     return {"Hello": "World"}
+
 
 def _get_system_status(system_id: str) -> dict:
     """Internal function to check the current status of a freezer system.
